@@ -15,9 +15,15 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(title:
             Text(
               'Text Widget in Appbar Widtget',
-              style: TextStyle(fontSize: 28),
+              style: TextStyle(fontSize: 20),
             ),
             centerTitle: true, //Appbar 가운데 정렬
+            leading:ElevatedButton(onPressed: (){},
+                    child:
+                        Text('TT'),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.white24)
+                        ),
+                    ),
           ),
         body:SingleChildScrollView(// Scrollable 화면
           child: Padding(
