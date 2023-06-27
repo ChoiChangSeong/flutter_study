@@ -1,67 +1,193 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePage createState() => _MyHomePage();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super (key: key);
+class _MyHomePage extends State<MyHomePage> {
+  bool isUserMgmtExpd = false;
+  bool isBookMgmtExpd = false;
+
+  void toggleUserMgmtMenu() {
+    setState(() {
+      isUserMgmtExpd = !isUserMgmtExpd;
+      print(isUserMgmtExpd);
+    });
+  }
+
+  void toggleBookMgmtMenu() {
+    setState(() {
+      isBookMgmtExpd = !isBookMgmtExpd;
+      print(isBookMgmtExpd);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title:
-        Text(
-          'Text Widget in Appbar Widtget',
-          style: TextStyle(fontSize: 28),
+    return Scaffold(
+      appBar: AppBar(
+          title: Text(
+            'Library Management',
+          ),
+          /*
+        leading: IconButton(icon: Icon(Icons.menu),
+                            onPressed:() => {print("menu")}),
+        */
+          actions: [
+            IconButton(
+                icon: Icon(Icons.search), onPressed: () => {print("search")}),
+          ]),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('관리자'),
+              accountEmail: Text('Manager@library.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.supervised_user_circle),
+              title: Text("User Management"),
+              onTap: () => {
+                print("User Management"),
+                toggleUserMgmtMenu(),
+              },
+              trailing: Icon(Icons
+                  .keyboard_arrow_down_rounded), //keyboard_control_key_rounded
+            ),
+            if (isUserMgmtExpd)
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  child: Column(children: [
+                    ListTile(
+                      title: Text("Register User"),
+                      onTap: () => {
+                        print("Register User"),
+                      },
+                    )
+                  ])),
+            ListTile(
+              leading: Icon(Icons.menu_book_rounded),
+              title: Text("Book Management"),
+              onTap: () => {
+                print("Book Management"),
+                toggleBookMgmtMenu(),
+              },
+              trailing: Icon(Icons
+                  .keyboard_arrow_down_rounded), //keyboard_control_key_rounded
+            ),
+            if (isBookMgmtExpd)
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  child: Column(children: [
+                    ListTile(
+                      title: Text("Register Book"),
+                      onTap: () => {
+                        print("Register Book"),
+                      },
+                    ),
+                    ListTile(
+                      title: Text("Rent Book"),
+                      onTap: () => {
+                        print("Rent Book"),
+                      },
+                    ),
+                    ListTile(
+                      title: Text("Return Book"),
+                      onTap: () => {
+                        print("Return Book"),
+                      },
+                    ),
+                  ])),
+          ],
         ),
-          centerTitle: true, //Appbar 가운데 정렬
-          automaticallyImplyLeading: true,
-        ),
-        body:SingleChildScrollView(// Scrollable 화면
-          child: Padding(
-            padding: const EdgeInsets.all(16.0), //4방 모두 동일하게 패딩
-            // 특정 방향만 패딩
-            // padding: const EdgeInsets.only(
-            //   left: 8,
-            //   right: 8,
-            // ),
-            // 위아래 좌우를 쌍으로 컨트롤
-            //padding: const EdgeInsets.symmetric(
-            //  vertical: 8,
-            //  horizontal: 8,
-            //  ),
+      ),
+      body: Row(
+        children: [
+          Expanded(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.network("https://i.ibb.co/CwzHq4z/trans-logo-512.png", width: 81,),
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'Label text(Hint Text)'),
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'Label text(password)'),
-                  obscureText: true,
-                ), //password 필드에 * 처리
-                Container(
-                  width: double.infinity, //양옆으로 최대
-                  margin: const EdgeInsets.only(
-                      top: 16
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: 20, right: 10, bottom: 10, top: 20),
+                    child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                          ),
+                          borderRadius: BorderRadius.all(20),
+                        ),
+                      ),
+                    ),
                   ),
-                  child: ElevatedButton(
-                    onPressed: (){},
-                    child: Text('Button text child'),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: 20, right: 10, bottom: 20, top: 10),
+                    child: Container(
+                        decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.all(20),
+                    )),
                   ),
                 ),
               ],
             ),
           ),
-        ),
-      ), // 한 페이지의 특정 영역에 위젯을 쉽게 배치할 수 있도록 틀을 잡아주는 역할을 함
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: 10, right: 20, bottom: 10, top: 20),
+                    child: Container(
+                        decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.all(20),
+                    )),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: 10, right: 20, bottom: 20, top: 10),
+                    child: Container(
+                        decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                      ),
+                      borderRadius: BorderRadius.all(20),
+                    )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
+}
 
+void main() {
+  runApp(MaterialApp(
+    home: MyHomePage(),
+    title: "Library Management",
+    theme: ThemeData(primarySwatch: Colors.orange),
+  ));
 }

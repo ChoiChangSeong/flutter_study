@@ -19,11 +19,10 @@ class MyApp extends StatelessWidget {
             ),
             centerTitle: true, //Appbar 가운데 정렬
             leading:ElevatedButton(onPressed: (){},
-                    child:
-                        Text('TT'),
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.white24)
-                        ),
-                    ),
+              child: Text('TT'),
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.white24),
+              ),
+            ),
           ),
         body:SingleChildScrollView(// Scrollable 화면
           child: Padding(
