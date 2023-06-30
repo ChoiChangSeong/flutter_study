@@ -8,6 +8,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePage extends State<MyHomePage> {
   bool isUserMgmtExpd = false;
   bool isBookMgmtExpd = false;
+  List<String> listBookLv2Menu = ["Register Book", "Rent Book", "Return Book"];
+
+  ListTile getLv2DrawerListFile(String menuName){
+    return ListTile(
+      trailing: Icon(
+        Icons.add_box,
+      ),
+      title: Container(
+          alignment: Alignment.centerRight,
+          child: Text(menuName,
+              style: TextStyle(fontSize: 12))),
+      onTap: () => {
+        print(menuName),
+      },
+    );
+  }
 
   void toggleUserMgmtMenu() {
     setState(() {
@@ -42,7 +58,7 @@ class _MyHomePage extends State<MyHomePage> {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('관리자'),
+              accountName: Text('Manager'),
               accountEmail: Text('Manager@library.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
@@ -50,36 +66,42 @@ class _MyHomePage extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.supervised_user_circle),
-              title: Text("User Management"),
+              title: isUserMgmtExpd
+                  ? Text("User Management",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                  : Text("User Management"),
               onTap: () => {
                 print("User Management"),
                 toggleUserMgmtMenu(),
               },
-              trailing: Icon(Icons
-                  .keyboard_arrow_down_rounded), //keyboard_control_key_rounded
+              trailing: isUserMgmtExpd
+                  ? Icon(Icons.keyboard_arrow_up_rounded)
+                  : Icon(Icons.keyboard_arrow_down_rounded),
             ),
             if (isUserMgmtExpd)
               Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5,
-                  ),
-                  child: Column(children: [
-                    ListTile(
-                      title: Text("Register User"),
-                      onTap: () => {
-                        print("Register User"),
-                      },
-                    )
-                  ])),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 5,
+                ),
+                child: Column(
+                  children: [
+                    getLv2DrawerListFile("Register User"),
+                  ],
+                ),
+              ),
             ListTile(
               leading: Icon(Icons.menu_book_rounded),
-              title: Text("Book Management"),
+              title: isBookMgmtExpd
+                  ? Text("Book Management",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                  : Text("Book Management"),
               onTap: () => {
                 print("Book Management"),
                 toggleBookMgmtMenu(),
               },
-              trailing: Icon(Icons
-                  .keyboard_arrow_down_rounded), //keyboard_control_key_rounded
+              trailing: isBookMgmtExpd
+                  ? Icon(Icons.keyboard_arrow_up_rounded)
+                  : Icon(Icons.keyboard_arrow_down_rounded),
             ),
             if (isBookMgmtExpd)
               Padding(
@@ -87,24 +109,8 @@ class _MyHomePage extends State<MyHomePage> {
                     horizontal: 5,
                   ),
                   child: Column(children: [
-                    ListTile(
-                      title: Text("Register Book"),
-                      onTap: () => {
-                        print("Register Book"),
-                      },
-                    ),
-                    ListTile(
-                      title: Text("Rent Book"),
-                      onTap: () => {
-                        print("Rent Book"),
-                      },
-                    ),
-                    ListTile(
-                      title: Text("Return Book"),
-                      onTap: () => {
-                        print("Return Book"),
-                      },
-                    ),
+                    for (var menuName in listBookLv2Menu)
+                      getLv2DrawerListFile(menuName)
                   ])),
           ],
         ),
@@ -118,15 +124,17 @@ class _MyHomePage extends State<MyHomePage> {
                   child: Container(
                     margin: EdgeInsets.only(
                         left: 20, right: 10, bottom: 10, top: 20),
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey,
-                          ),
-                          borderRadius: BorderRadius.all(20),
-                        ),
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.asset('assets/images/menu_register_user.png',
+                      width: 8,
+                      height: 8,
+                      fit: BoxFit.cover,),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
                       ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),
@@ -134,13 +142,18 @@ class _MyHomePage extends State<MyHomePage> {
                   child: Container(
                     margin: EdgeInsets.only(
                         left: 20, right: 10, bottom: 20, top: 10),
-                    child: Container(
-                        decoration: BoxDecoration(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.asset('assets/images/menu_rent_book.png',
+                      width: 8,
+                      height: 8,
+                      fit: BoxFit.cover,),
+                    decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.grey,
                       ),
-                      borderRadius: BorderRadius.all(20),
-                    )),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ],
@@ -153,26 +166,36 @@ class _MyHomePage extends State<MyHomePage> {
                   child: Container(
                     margin: EdgeInsets.only(
                         left: 10, right: 20, bottom: 10, top: 20),
-                    child: Container(
-                        decoration: BoxDecoration(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.asset('assets/images/menu_register_book.png',
+                      width: 8,
+                      height: 8,
+                      fit: BoxFit.cover,),
+                    decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.grey,
                       ),
-                      borderRadius: BorderRadius.all(20),
-                    )),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.only(
                         left: 10, right: 20, bottom: 20, top: 10),
-                    child: Container(
-                        decoration: BoxDecoration(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.asset('assets/images/menu_return_book.png',
+                      width: 8,
+                      height: 8,
+                      fit: BoxFit.cover,),
+                    decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.grey,
                       ),
-                      borderRadius: BorderRadius.all(20),
-                    )),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ],
@@ -188,6 +211,6 @@ void main() {
   runApp(MaterialApp(
     home: MyHomePage(),
     title: "Library Management",
-    theme: ThemeData(primarySwatch: Colors.orange),
+    theme: ThemeData(primarySwatch: Colors.yellow),
   ));
 }
